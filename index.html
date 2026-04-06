@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社ワイドクロス | 農業と経営の未来を創る</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS Custom Properties (Variables)
+        ============================================ */
+        :root {
+            --color-primary:       #1a3d2b;   /* ディープグリーン */
+            --color-primary-mid:   #2d6a4f;   /* ミドルグリーン */
+            --color-accent:        #b5924c;   /* ゴールド */
+            --color-accent-light:  #d4af6e;   /* ライトゴールド */
+            --color-bg:            #f8f6f0;   /* オフホワイト */
+            --color-bg-dark:       #111a14;   /* フッター背景 */
+            --color-text:          #1c1c1c;
+            --color-text-muted:    #6b7280;
+            --color-border:        #e2ddd4;
+            --font-serif:          'Cormorant Garamond', 'Times New Roman', serif;
+            --font-sans:           'Noto Sans JP', sans-serif;
+            --transition-base:     0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-card:         0 4px 24px rgba(26, 61, 43, 0.08);
+            --shadow-card-hover:   0 12px 40px rgba(26, 61, 43, 0.16);
+            --radius-card:         16px;
+        }
+
+        /* ============================================
+           Reset & Base
+        ============================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ============================================
+           Utility
+        ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: var(--font-serif);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 12px;
+        }
+
+        .section-heading {
+            font-family: var(--font-sans);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1.3;
+        }
+
+        .section-heading-en {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            color: var(--color-primary);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .divider-line {
+            display: block;
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+            margin-top: 16px;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ============================================
+           Navigation
+        ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: background var(--transition-base), box-shadow var(--transition-base);
+        }
+
+        .nav.scrolled {
+            background: rgba(248, 246, 240, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 var(--color-border);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+
+        .nav-logo-en {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--color-primary);
+            transition: color var(--transition-base);
+        }
+
+        .nav-logo-ja {
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            color: var(--color-text-muted);
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--color-text);
+            position: relative;
+            padding-bottom: 4px;
+            transition: color var(--transition-base);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-accent);
+            transition: width var(--transition-base);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero section - white nav links */
+        .nav.hero-mode .nav-logo-en,
+        .nav.hero-mode .nav-links a {
+            color: #fff;
+        }
+
+        .nav.hero-mode .nav-logo-ja {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .nav.hero-mode .nav-hamburger span {
+            background: #fff;
+        }
+
+        /* Hamburger */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-text);
+            transition: var(--transition-base);
+        }
+
+        .nav-hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Mobile Menu */
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(248, 246, 240, 0.98);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--color-border);
+            padding: 24px;
+            z-index: 999;
+        }
+
+        .nav-mobile.open {
+            display: block;
+        }
+
+        .nav-mobile a {
+            display: block;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-border);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-mobile a:last-child {
+            border-bottom: none;
+        }
+
+        /* ============================================
+           Hero Section
+        ============================================ */
+        .hero {
+            position: relative;
+            height: 100svh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(
+                    to bottom,
+                    rgba(10, 30, 18, 0.55) 0%,
+                    rgba(10, 30, 18, 0.35) 60%,
+                    rgba(10, 30, 18, 0.65) 100%
+                ),
+                url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.05);
+            animation: heroZoom 12s ease-out forwards;
+        }
+
+        @keyframes heroZoom {
+            from { transform: scale(1.05); }
+            to   { transform: scale(1.0); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+            padding: 0 24px;
+            max-width: 910px;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-serif);
+            font-size: clamp(0.75rem, 2vw, 1rem);
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--color-accent-light);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.3s ease forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.55s ease forwards;
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: var(--color-accent-light);
+        }
+
+        .hero-desc {
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            font-weight: 300;
+            line-height: 2;
+            color: rgba(255,255,255,0.88);
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.8s ease forwards;
+        }
+
+        .hero-cta {
+            opacity: 0;
+            animation: fadeUp 0.9s 1.0s ease forwards;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--color-accent);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            padding: 16px 40px;
+            border-radius: 100px;
+            transition: background var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+            box-shadow: 0 4px 20px rgba(181, 146, 76, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(181, 146, 76, 0.5);
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+            transition: transform var(--transition-base);
+        }
+
+        .btn-primary:hover svg {
+            transform: translateX(4px);
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s 1.5s ease forwards;
+        }
+
+        .hero-scroll-hint .scroll-line {
+            width: 1px;
+            height: 48px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+            animation: scrollPulse 2s 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.5; transform: scaleY(1); }
+            50%       { opacity: 1;   transform: scaleY(0.7); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ============================================
+           About Section
+        ============================================ */
+        .about {
+            padding: 120px 0;
+            background: #fff;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image-wrap {
+            position: relative;
+        }
+
+        .about-image-wrap::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid var(--color-accent);
+            border-radius: var(--radius-card);
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .about-image {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .about-text {
+            padding: 8px 0;
+        }
+
+        .about-body {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            line-height: 2;
+            margin-bottom: 24px;
+        }
+
+        .about-tagline {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .about-tagline-line {
+            width: 40px;
+            height: 1px;
+            background: var(--color-accent);
+        }
+
+        .about-tagline-text {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--color-primary);
+            letter-spacing: 0.03em;
+        }
+
+        /* ============================================
+           Services Section
+        ============================================ */
+        .services {
+            padding: 120px 0;
+            background: var(--color-bg);
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 72px;
+        }
+
+        .services-header .divider-line {
+            margin: 16px auto 0;
+        }
+
+        .services-header p {
+            margin-top: 20px;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border);
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .service-card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover .service-card-image {
+            transform: scale(1.04);
+        }
+
+        .service-card-image-wrap {
+            overflow: hidden;
+        }
+
+        .service-card-body {
+            padding: 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .service-card-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .service-card-icon.green  { background: #e8f5e9; color: #2d6a4f; }
+        .service-card-icon.blue   { background: #e3f2fd; color: #1565c0; }
+        .service-card-icon.amber  { background: #fff8e1; color: #b5924c; }
+        .service-card-icon.purple { background: #f3e5f5; color: #6a1b9a; }
+
+        .service-card-number {
+            font-family: var(--font-serif);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .service-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .service-card-desc {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            line-height: 1.9;
+            flex: 1;
+        }
+
+        /* ============================================
+           Company Profile Section
+        ============================================ */
+        .company {
+            padding: 120px 0;
+            background: #fff;
+        }
+
+        .company-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .company-header .divider-line {
+            margin: 16px auto 0;
+        }
+
+        .company-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .company-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 48px;
+        }
+
+        .company-table tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .company-table tr:first-child {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .company-table th {
+            width: 160px;
+            padding: 22px 16px 22px 0;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            vertical-align: top;
+            white-space: nowrap;
+        }
+
+        .company-table td {
+            padding: 22px 0;
+            font-size: 1rem;
+            color: var(--color-text);
+            line-height: 1.7;
+        }
+
+        .company-map {
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            height: 280px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border);
+            filter: grayscale(30%);
+            transition: filter var(--transition-base);
+        }
+
+        .company-map:hover {
+            filter: grayscale(0%);
+        }
+
+        .company-map iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ============================================
+           Footer
+        ============================================ */
+        .footer {
+            background: var(--color-bg-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 80px 0 40px;
+        }
+
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 48px;
+            align-items: start;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 40px;
+        }
+
+        .footer-brand-en {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .footer-brand-tagline {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--color-accent-light);
+        }
+
+        .footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            list-style: none;
+            text-align: right;
+        }
+
+        .footer-nav a {
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.6);
+            transition: color var(--transition-base);
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-accent-light);
+        }
+
+        .footer-copy {
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ============================================
+           Responsive
+        ============================================ */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .about-image-wrap::before {
+                display: none;
+            }
+
+            .about-image {
+                height: 360px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-nav {
+                text-align: left;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 12px 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .about,
+            .services,
+            .company {
+                padding: 80px 0;
+            }
+
+            .company-table th {
+                width: 120px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         Navigation
+    ============================================ -->
+    <nav class="nav hero-mode" id="mainNav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo" aria-label="株式会社ワイドクロス トップへ">
+                    <span class="nav-logo-en">WIDE CROSS</span>
+                    <span class="nav-logo-ja">株式会社ワイドクロス</span>
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="#about">私たちについて</a></li>
+                    <li><a href="#services">事業内容</a></li>
+                    <li><a href="#company">会社概要</a></li>
+                </ul>
+
+                <button class="nav-hamburger" id="hamburgerBtn" aria-label="メニューを開く" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="nav-mobile" id="mobileMenu" role="navigation" aria-label="モバイルメニュー">
+        <a href="#about"    class="mobile-link">私たちについて</a>
+        <a href="#services" class="mobile-link">事業内容</a>
+        <a href="#company"  class="mobile-link">会社概要</a>
+    </div>
+
+    <!-- ============================================
+         Hero Section
+    ============================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+
+        <div class="hero-content">
+            <p class="hero-eyebrow">WIDE CROSS Co., Ltd.</p>
+            <h1 class="hero-title">
+                農業の未来を、<br>
+                <em>多角的な視点</em>で切り拓く。
+            </h1>
+            <p class="hero-desc">
+                大地を耕し、価値を運び、経営を支える。<br>
+                農業・貿易・金融・FC展開を通じて、社会に新しい循環を創り出します。
+            </p>
+            <div class="hero-cta">
+                <a href="#services" class="btn-primary">
+                    事業詳細を見る
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-scroll-hint" aria-hidden="true">
+            <span>Scroll</span>
+            <span class="scroll-line"></span>
+        </div>
+    </section>
+
+    <!-- ============================================
+         About Section
+    ============================================ -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <!-- Image -->
+                <div class="about-image-wrap reveal">
+                    <img
+                        src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=1000"
+                        alt="豊かな農地の風景"
+                        class="about-image"
+                        loading="lazy"
+                        onerror="this.src='https://placehold.co/1000x520/e8f5e9/2d6a4f?text=Agriculture'"
+                    >
+                </div>
+
+                <!-- Text -->
+                <div class="about-text reveal reveal-delay-2">
+                    <span class="section-label">About Us</span>
+                    <h2 class="section-heading">私たちについて</h2>
+                    <span class="divider-line"></span>
+
+                    <p class="about-body" style="margin-top: 32px;">
+                        株式会社ワイドクロスは、福岡県岡垣町を拠点に、農業の本質的な価値と現代のビジネス戦略を融合させる「総合事業支援企業」です。
+                    </p>
+                    <p class="about-body">
+                        ただ作るだけではなく、どのように流通させ、どのように資産を守り、どのように組織を広げていくか。農業経営に求められるすべての要素を、専門的な知見を持ってサポートいたします。
+                    </p>
+
+                    <div class="about-tagline">
+                        <span class="about-tagline-line"></span>
+                        <span class="about-tagline-text">Wide Cross Perspective</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Services Section
+    ============================================ -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="services-header reveal">
+                <span class="section-label">Our Services</span>
+                <h2 class="section-heading">事業内容</h2>
+                <span class="divider-line"></span>
+                <p>4つの柱で、持続可能な成長を実現します。</p>
+            </div>
+
+            <div class="services-grid">
+
+                <!-- Service 1: 農業・牧畜 -->
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-card-image-wrap">
+                        <img
+                            src="https://images.unsplash.com/photo-1595113316349-9fa4ee24f884?auto=format&fit=crop&q=80&w=800"
+                            alt="農作物の加工イメージ"
+                            class="service-card-image"
+                            loading="lazy"
+                            onerror="this.src='https://placehold.co/800x220/e8f5e9/2d6a4f?text=Agriculture'"
+                        >
+                    </div>
+                    <div class="service-card-body">
+                        <div class="service-card-icon green" aria-hidden="true">
+                            <!-- 農業アイコン (植物) -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22V12"/>
+                                <path d="M12 12C12 7 7 4 3 5c0 5 3 8 9 7z"/>
+                                <path d="M12 12C12 7 17 4 21 5c0 5-3 8-9 7z"/>
+                            </svg>
+                        </div>
+                        <p class="service-card-number">Service 01</p>
+                        <h3 class="service-card-title">農業・牧畜の経営・加工販売</h3>
+                        <p class="service-card-desc">
+                            自社での農耕・牧畜経営を通じ、高品質な農産物を生産。さらに、それらを高付加価値な製品へと加工し、消費者の元へ届ける一気通貫のモデルを構築しています。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service 2: 農業用品の売買・輸出入 -->
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-card-image-wrap">
+                        <img
+                            src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&q=80&w=800"
+                            alt="農業機器のイメージ"
+                            class="service-card-image"
+                            loading="lazy"
+                            onerror="this.src='https://placehold.co/800x220/e3f2fd/1565c0?text=Equipment'"
+                        >
+                    </div>
+                    <div class="service-card-body">
+                        <div class="service-card-icon blue" aria-hidden="true">
+                            <!-- 貿易アイコン (地球) -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M2 12h20"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </div>
+                        <p class="service-card-number">Service 02</p>
+                        <h3 class="service-card-title">農業用品の売買・輸出入代行</h3>
+                        <p class="service-card-desc">
+                            農業機器・農薬・肥料などの必需品を国内外から調達。適切な媒介・代理業務を通じて、農家の方々が最適なコストで最高のパフォーマンスを発揮できる環境を提供します。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service 3: 金融資産運用コンサルティング -->
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-card-image-wrap">
+                        <img
+                            src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800"
+                            alt="コンサルティングのイメージ"
+                            class="service-card-image"
+                            loading="lazy"
+                            onerror="this.src='https://placehold.co/800x220/fff8e1/b5924c?text=Finance'"
+                        >
+                    </div>
+                    <div class="service-card-body">
+                        <div class="service-card-icon amber" aria-hidden="true">
+                            <!-- 金融アイコン (グラフ) -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+                                <polyline points="16 7 22 7 22 13"/>
+                            </svg>
+                        </div>
+                        <p class="service-card-number">Service 03</p>
+                        <h3 class="service-card-title">金融資産運用コンサルティング</h3>
+                        <p class="service-card-desc">
+                            事業で得た利益を次の成長へと繋げるための、戦略的な資産運用アドバイスを行います。最新の市場情報に基づき、持続可能な経営基盤の構築をサポートします。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Service 4: フランチャイズ・チェーン展開 -->
+                <div class="service-card reveal reveal-delay-4">
+                    <div class="service-card-image-wrap">
+                        <img
+                            src="https://images.unsplash.com/photo-1521791136064-7986c2923216?auto=format&fit=crop&q=80&w=800"
+                            alt="フランチャイズネットワーク"
+                            class="service-card-image"
+                            loading="lazy"
+                            onerror="this.src='https://placehold.co/800x220/f3e5f5/6a1b9a?text=Franchise'"
+                        >
+                    </div>
+                    <div class="service-card-body">
+                        <div class="service-card-icon purple" aria-hidden="true">
+                            <!-- ネットワークアイコン -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="5"  r="2"/>
+                                <circle cx="5"  cy="19" r="2"/>
+                                <circle cx="19" cy="19" r="2"/>
+                                <path d="M12 7v4l-5 6M12 11l5 6"/>
+                            </svg>
+                        </div>
+                        <p class="service-card-number">Service 04</p>
+                        <h3 class="service-card-title">フランチャイズ・チェーン展開</h3>
+                        <p class="service-card-desc">
+                            成功モデルの仕組み化を行い、加盟店の募集・指導を通じて、共に成長するビジネスパートナーのネットワークを構築。地域活性化に貢献するビジネスを拡大します。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Company Profile Section
+    ============================================ -->
+    <section id="company" class="company">
+        <div class="container">
+            <div class="company-header reveal">
+                <span class="section-label">Company Profile</span>
+                <h2 class="section-heading">会社概要</h2>
+                <span class="divider-line"></span>
+            </div>
+
+            <div class="company-inner">
+                <table class="company-table reveal">
+                    <tbody>
+                        <tr>
+                            <th scope="row">会社名</th>
+                            <td>株式会社ワイドクロス</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">代表者</th>
+                            <td>廣渡 隆寛</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">所在地</th>
+                            <td>〒811-4221 福岡県遠賀郡岡垣町917-3</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">資本金</th>
+                            <td>1,000,000円</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="company-map reveal reveal-delay-2">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3314.1568285510615!2d130.605!3d33.855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3543d84f885e783d%3A0x0!2zMzPCsDUxJzE4LjAiTiAxMzDCsDM2JzE4LjAiRQ!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp"
+                        title="株式会社ワイドクロス 所在地マップ"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         Footer
+    ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <p class="footer-brand-en">WIDE CROSS</p>
+                    <p class="footer-brand-tagline">Expanding the potential of Agriculture and Business.</p>
+                </div>
+                <nav aria-label="フッターナビゲーション">
+                    <ul class="footer-nav">
+                        <li><a href="#about">私たちについて</a></li>
+                        <li><a href="#services">事業内容</a></li>
+                        <li><a href="#company">会社概要</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <p class="footer-copy">&copy; 2024 WIDE CROSS Co., Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JavaScript
+    ============================================ -->
+    <script>
+        /* ---- Navigation: scroll state & hero-mode ---- */
+        const nav         = document.getElementById('mainNav');
+        const heroSection = document.getElementById('hero');
+
+        function updateNav() {
+            const scrolled     = window.scrollY > 40;
+            const heroBottom   = heroSection.getBoundingClientRect().bottom;
+            const pastHero     = heroBottom < 80;
+
+            nav.classList.toggle('scrolled',   scrolled);
+            nav.classList.toggle('hero-mode',  !pastHero);
+        }
+
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+
+        /* ---- Hamburger Menu ---- */
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu   = document.getElementById('mobileMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburgerBtn.classList.toggle('open', isOpen);
+            hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburgerBtn.classList.remove('open');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        /* ---- Scroll Reveal (Intersection Observer) ---- */
+        const revealObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.12 }
+        );
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
+
+</body>
+</html>
